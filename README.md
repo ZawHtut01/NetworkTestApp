@@ -25,10 +25,13 @@ Before running this application, ensure you have the following installed:
    cd NetworkTestApp
 
 2. Restore the NuGet packages
+    ```bash
     dotnet restore
 
 3. Build the application
+   ```bash
    dotnet build
 
 4. Run the application
+   ```bash
    dotnet run
