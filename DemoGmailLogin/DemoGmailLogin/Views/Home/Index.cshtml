@@ -1,0 +1,430 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Google Auth App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #333;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 25px 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 0 25px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h2 {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-header h2 i {
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin-top: 25px;
+        }
+
+        .nav-links li {
+            padding: 15px 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links li:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links i {
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .welcome p {
+            color: #7f8c8d;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-details {
+            text-align: right;
+            margin-right: 15px;
+        }
+
+        .user-details h4 {
+            color: #2c3e50;
+        }
+
+        .user-details p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logout-btn {
+            margin-left: 20px;
+            padding: 10px 20px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ee5253;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            color: white;
+        }
+
+        .card-icon.blue {
+            background: #4facfe;
+        }
+
+        .card-icon.green {
+            background: #1dd1a1;
+        }
+
+        .card-icon.purple {
+            background: #9c88ff;
+        }
+
+        .card-icon.orange {
+            background: #feca57;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .card p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-top: 15px;
+        }
+
+        .recent-activities {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+        }
+
+        .activity-icon.blue {
+            background: #4facfe;
+        }
+
+        .activity-icon.green {
+            background: #1dd1a1;
+        }
+
+        .activity-icon.purple {
+            background: #9c88ff;
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-details h4 {
+            font-size: 16px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .activity-details p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .activity-time {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-th-large"></i> Dashboard</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#"><i class="fas fa-chart-bar"></i> Analytics</a></li>
+                <li><a href="#"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div class="welcome">
+                    <h1>Welcome, @ViewBag.Name!</h1>
+                    <p>Here's what's happening with your account today.</p>
+                </div>
+                <div class="user-info">
+                    <div class="user-details">
+                        <h4>@ViewBag.Name</h4>
+                        <p>@ViewBag.Email</p>
+                    </div>
+                    <div class="avatar">
+                        @ViewBag.Name.ToString().Substring(0, 1).ToUpper()
+                    </div>
+                    <a href="@Url.Action("Logout", "Account")" class="logout-btn">Logout</a>
+                </div>
+            </div>
+
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon blue">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h3>Users</h3>
+                            <p>Total platform users</p>
+                        </div>
+                    </div>
+                    <div class="card-value">2,543</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon green">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h3>Revenue</h3>
+                            <p>This month</p>
+                        </div>
+                    </div>
+                    <div class="card-value">$12,258</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon purple">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div>
+                            <h3>Orders</h3>
+                            <p>Processed today</p>
+                        </div>
+                    </div>
+                    <div class="card-value">184</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon orange">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div>
+                            <h3>Tasks</h3>
+                            <p>Completed today</p>
+                        </div>
+                    </div>
+                    <div class="card-value">27/30</div>
+                </div>
+            </div>
+
+            <div class="recent-activities">
+                <h3 class="section-title">Recent Activities</h3>
+                <ul class="activity-list">
+                    <li class="activity-item">
+                        <div class="activity-icon blue">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-details">
+                            <h4>New user registered</h4>
+                            <p>John Doe joined the platform</p>
+                        </div>
+                        <div class="activity-time">2 hours ago</div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon green">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="activity-details">
+                            <h4>Payment received</h4>
+                            <p>New payment of $249.99</p>
+                        </div>
+                        <div class="activity-time">5 hours ago</div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon purple">
+                            <i class="fas fa-bug"></i>
+                        </div>
+                        <div class="activity-details">
+                            <h4>Issue resolved</h4>
+                            <p>Fixed dashboard loading bug</p>
+                        </div>
+                        <div class="activity-time">Yesterday</div>
+                    </li>
+                    <li class="activity-item">
+                        <div class="activity-icon orange">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="activity-details">
+                            <h4>Project completed</h4>
+                            <p>Q3 marketing campaign finished</p>
+                        </div>
+                        <div class="activity-time">2 days ago</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

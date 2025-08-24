@@ -1,0 +1,15 @@
+﻿@model SampleMVC.Models.User
+
+<h2>User Detail</h2>
+
+@if(TempData["alertMessage"] != null){
+    <h3 style="alert alert-success">
+        @TempData["alertMessage"]
+    </h3>
+}
+
+<h2> User ID @Model.Id </h2>
+
+<h3> User Name @Model.Name </h3>
+
+<a asp-action="Index"> Back </a>

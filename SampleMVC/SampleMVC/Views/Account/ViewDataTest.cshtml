@@ -1,0 +1,31 @@
+﻿
+    @{
+        var users = ViewData["users"] as IEnumerable<SampleMVC.Models.User>;
+    }
+
+<table class="table">
+         <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+         </thead>
+
+         <tbody>
+                 @foreach(var u in users){
+                     <tr>
+                         <td>@u.Id</td>
+                         <td>@u.Name</td>
+                         <td>
+                         <button >
+                             <a asp-controller="Account" asp-action="Detail" asp-route-id="@u.Id">
+                             Edit
+                             </a>
+                         </button> 
+                         </td>
+                    </tr>
+                 }
+          </tbody>
+
+        </table>

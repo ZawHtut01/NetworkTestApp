@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MyFirstMauiApp.ViewModels"
+             x:Class="MyFirstMauiApp.Views.MainPage"
+             Title="User Form">
+
+        <ContentPage.BindingContext>
+        <viewmodels:UserViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Name Input -->
+            <Label Text="Full Name:" FontAttributes="Bold"/>
+            <Entry Text="{Binding User.Name}" 
+                   Placeholder="Enter your name"/>
+
+            <!-- Email Input -->
+            <Label Text="Email:" FontAttributes="Bold"/>
+            <Entry Text="{Binding User.Email}" 
+                   Placeholder="example@email.com"
+                   Keyboard="Email"/>
+
+            <!-- Submit Button -->
+            <Button Text="Submit" 
+                    Command="{Binding SubmitCommand}"
+                    BackgroundColor="#512BD4"
+                    TextColor="White"
+                    Margin="0,20"/>
+
+            <!-- Display Bound Data -->
+            <Frame BorderColor="LightGray" Padding="10">
+                <VerticalStackLayout>
+                    <Label Text="{Binding User.Name, StringFormat='Name: {0}'}" 
+                           FontAttributes="Italic"/>
+                    <Label Text="{Binding User.Email, StringFormat='Email: {0}'}" 
+                           FontAttributes="Italic"/>
+                </VerticalStackLayout>
+            </Frame>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

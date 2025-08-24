@@ -1,0 +1,95 @@
+﻿@model List<User>
+@{
+    Layout = "_Layout";
+    var currentUserId = ViewBag.CurrentUserId;
+}
+
+<style>
+    .chat-container {
+        max-width: 700px;
+        margin: 3rem auto;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    .chat-header {
+        background: linear-gradient(135deg, #007bff, #00b4d8);
+        color: white;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .chat-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .chat-user {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+        text-decoration: none;
+        transition: background-color 0.2s;
+        color: #212529;
+    }
+
+        .chat-user:hover {
+            background-color: #f8f9fa;
+            text-decoration: none;
+        }
+
+        .chat-user:last-child {
+            border-bottom: none;
+        }
+
+    .user-img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #dee2e6;
+    }
+
+    .user-info {
+        margin-left: 1rem;
+    }
+
+    .username {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .user-status {
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+</style>
+
+<div class="chat-container">
+    <div class="chat-header">
+        <h4 class="mb-0">💬 Welcome to Zino Chat</h4>
+    </div>
+
+    <ul class="chat-list">
+        @foreach (var user in Model)
+        {
+            if (user.Id != currentUserId)
+            {
+                <li>
+                    <a asp-controller="Chat" asp-action="ChatWith" asp-route-receiverId="@user.Id" class="chat-user">
+                        <img src="@user.ProfileImagePath" alt="User image" class="user-img" />
+                        <div class="user-info">
+                            <div class="username">@user.Username</div>
+                            <div class="user-status">Click to chat</div>
+                        </div>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+</div>

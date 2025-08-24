@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyFirstMauiApp.Views.MainPage">
+
+    <StackLayout Padding="20" Spacing="12">
+
+        <!-- Centered Title -->
+        <Label Text="Note For Baby"
+               FontSize="24"
+               HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
+               Margin="0,20,0,10" />
+
+        <Button Text="Add Note" Clicked="OnAddNoteClicked" />
+
+        <CollectionView ItemsSource="{Binding Notes}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding Text}" FontSize="18" />
+                        <Label Text="{Binding CreatedAt}" FontSize="12" TextColor="Gray" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </StackLayout>
+</ContentPage>
